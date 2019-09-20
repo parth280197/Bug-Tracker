@@ -14,9 +14,11 @@ namespace BugTracker.Controllers
   {
     private ApplicationSignInManager _signInManager;
     private ApplicationUserManager _userManager;
+    private ApplicationDbContext _db;
 
     public AccountController()
     {
+      _db = new ApplicationDbContext();
     }
 
     public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -136,7 +138,8 @@ namespace BugTracker.Controllers
     [AllowAnonymous]
     public ActionResult Register()
     {
-      return View();
+      RegisterViewModel registerViewModel = new RegisterViewModel() { Roles = new SelectList(_db.Roles.ToList(), "Id", "Name") };
+      return View(registerViewModel);
     }
 
     //

@@ -26,6 +26,11 @@ namespace BugTracker.Helper
       _roleManager.Create(new IdentityRole(roleName));
     }
 
+    public bool CheckRole(string roleName)
+    {
+      return _roleManager.RoleExists(roleName);
+    }
+
     /// <summary>
     /// Assign user to the specified role.
     /// </summary>
