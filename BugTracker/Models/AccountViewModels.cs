@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using CompareAttribute = System.ComponentModel.DataAnnotations.CompareAttribute;
 
 namespace BugTracker.Models
@@ -81,10 +80,17 @@ namespace BugTracker.Models
     [Display(Name = "Confirm password")]
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     public string ConfirmPassword { get; set; }
-
     [Required]
     [Display(Name = "Select role")]
-    public SelectList Roles { get; set; }
+    public string UserRole { get; set; }
+
+    public List<Role> Roles { get; set; }
+  }
+
+  public class Role
+  {
+    public string Id { get; set; }
+    public string Name { get; set; }
   }
 
   public class ResetPasswordViewModel

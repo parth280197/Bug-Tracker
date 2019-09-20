@@ -7,14 +7,14 @@ namespace BugTracker.Helper
 {
   public class UserHelper
   {
-    private ApplicationDbContext _db;
+    ApplicationDbContext db;
     private RoleManager<IdentityRole> _roleManager;
-    private UserManager<IdentityUser> _userManager;
+    private UserManager<User> _userManager;
     public UserHelper(ApplicationDbContext db)
     {
-      this._db = db;
-      _roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_db));
-      _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_db));
+      this.db = db;
+      _roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+      _userManager = new UserManager<User>(new UserStore<User>(db));
     }
 
     /// <summary>
@@ -26,6 +26,21 @@ namespace BugTracker.Helper
       _roleManager.Create(new IdentityRole(roleName));
     }
 
+    /// <summary>
+    /// Get role name from role Id.
+    /// </summary>
+    /// <param name="roleId">to get corresponding role name.</param>
+    /// <returns></returns>
+    public string GetRole(string roleId)
+    {
+      return _roleManager.FindById(roleId).Name;
+    }
+
+    /// <summary>
+    /// Check if specified roleName exist or not.
+    /// </summary>
+    /// <param name="roleName">to be checked for.</param>
+    /// <returns></returns>
     public bool CheckRole(string roleName)
     {
       return _roleManager.RoleExists(roleName);

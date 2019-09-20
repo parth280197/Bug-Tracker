@@ -1,4 +1,5 @@
-﻿using BugTracker.Models;
+﻿using BugTracker.Helper;
+using BugTracker.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -15,10 +16,12 @@ namespace BugTracker.Controllers
     private ApplicationSignInManager _signInManager;
     private ApplicationUserManager _userManager;
     private ApplicationDbContext _db;
+    private UserHelper _userHelper;
 
     public AccountController()
     {
       _db = new ApplicationDbContext();
+      _userHelper = new UserHelper(_db);
     }
 
     public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -138,7 +141,10 @@ namespace BugTracker.Controllers
     [AllowAnonymous]
     public ActionResult Register()
     {
-      RegisterViewModel registerViewModel = new RegisterViewModel() { Roles = new SelectList(_db.Roles.ToList(), "Id", "Name") };
+      RegisterViewModel registerViewModel = new RegisterViewModel()
+      {
+        Roles = _db.Roles.Select(role => new Role { Id = role.Id, Name = role.Name }).ToList()
+      };
       return View(registerViewModel);
     }
 
@@ -156,7 +162,7 @@ namespace BugTracker.Controllers
         if (result.Succeeded)
         {
           await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
+          _userHelper.AssignRole(user.Id, _userHelper.GetRole(model.UserRole));
           // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
           // Send an email with this link
           // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
