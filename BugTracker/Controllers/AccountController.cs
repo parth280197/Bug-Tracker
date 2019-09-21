@@ -349,7 +349,11 @@ namespace BugTracker.Controllers
           // If the user does not have an account, then prompt the user to create an account
           ViewBag.ReturnUrl = returnUrl;
           ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-          return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+          return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel
+          {
+            Email = loginInfo.Email,
+            Roles = _db.Roles.Select(role => new Role { Id = role.Id, Name = role.Name }).ToList()
+          });
       }
     }
 
@@ -381,6 +385,7 @@ namespace BugTracker.Controllers
           if (result.Succeeded)
           {
             await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            _userHelper.AssignRole(user.Id, _userHelper.GetRole(model.UserRole));
             return RedirectToLocal(returnUrl);
           }
         }

@@ -9,6 +9,11 @@ namespace BugTracker.Models
     [Required]
     [Display(Name = "Email")]
     public string Email { get; set; }
+    [Required(ErrorMessage = "Please select user role.")]
+    [Display(Name = "Select role")]
+    public string UserRole { get; set; }
+
+    public List<Role> Roles { get; set; }
   }
 
   public class ExternalLoginListViewModel
@@ -80,8 +85,9 @@ namespace BugTracker.Models
     [Display(Name = "Confirm password")]
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     public string ConfirmPassword { get; set; }
-    [Required]
+    [Required(ErrorMessage = "Please select user role.")]
     [Display(Name = "Select role")]
+
     public string UserRole { get; set; }
 
     public List<Role> Roles { get; set; }
