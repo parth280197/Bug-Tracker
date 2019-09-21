@@ -53,9 +53,9 @@ namespace BugTracker
       //   consumerKey: "",
       //   consumerSecret: "");
 
-      //app.UseFacebookAuthentication(
-      //   appId: "",
-      //   appSecret: "");
+      app.UseFacebookAuthentication(
+         appId: "946220462378885",
+         appSecret: "b8144c46fbb1c13e0685d6a8d120a8b0");
 
       //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
       //{
