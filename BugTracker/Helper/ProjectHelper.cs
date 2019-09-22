@@ -27,10 +27,10 @@ namespace BugTracker.Helper
     /// </summary>
     /// <param name="projectId">Unique project Id for the project.</param>
     /// <returns>List of projects</returns>
-    public List<Project> GetProject(int projectId)
+    public Project GetProject(int projectId)
     {
-      var projects = db.Projects.Where(project => project.Id == projectId).ToList();
-      return projects;
+      var project = db.Projects.Find(projectId);
+      return project;
     }
 
     /// <summary>
@@ -54,6 +54,56 @@ namespace BugTracker.Helper
       db.SaveChanges();
     }
 
+    public void UpdateProject(Project project)
+    {
+      if (project != null)
+      {
+        var projectInDb = GetProject(project.Id);
 
+        projectInDb.Name = project.Name;
+
+        List<User> selectedUsers = project.Users.ToList();
+
+        //Get all users to remove in removed list
+        List<User> removedUsers = new List<User>();
+
+        foreach (User user in projectInDb.Users)
+        {
+          if (!selectedUsers.Contains(user))
+          {
+            removedUsers.Add(user);
+          }
+        }
+
+        //Remove it from project
+        foreach (var user in removedUsers)
+        {
+          projectInDb.Users.Remove(user);
+          db.SaveChanges();
+        }
+
+        //add all new user selected from view model
+        foreach (var user in selectedUsers)
+        {
+          if (!projectInDb.Users.Contains(user))
+          {
+            projectInDb.Users.Add(user);
+          }
+        }
+        db.SaveChanges();
+      }
+    }
+    /// <summary>
+    /// Gives all usersId of users involved in specified project.
+    /// </summary>
+    /// <param name="projectId">unique projectId for the project</param>
+    /// <returns>Array of the string containing userIds.</returns>
+    public string[] GetProjectUserIds(int projectId)
+    {
+      var project = GetProject(projectId);
+      string[] userIds = project.Users.Select(user => user.Id).ToArray();
+
+      return userIds;
+    }
   }
 }

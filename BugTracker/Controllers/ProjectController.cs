@@ -23,27 +23,59 @@ namespace BugTracker.Controllers
       var projects = projectHelper.GetAllProject();
       return View(projects);
     }
-    public ActionResult CreateOrUpdateForm()
+    public ActionResult Create()
     {
+      ViewBag.Action = "Create";
       ProjectFormViewModel viewModel = new ProjectFormViewModel()
       {
         Project = new Project(),
         UsersList = new SelectList(db.Users.ToList(), "Id", "UserName")
       };
-      return View(viewModel);
+
+      return View("CreateOrUpdateForm", viewModel);
+    }
+
+    public ActionResult Update(int id)
+    {
+      ViewBag.Action = "Update";
+      ProjectFormViewModel viewModel = new ProjectFormViewModel()
+      {
+        Project = projectHelper.GetProject(id),
+        UsersList = new SelectList(db.Users.ToList(), "Id", "UserName"),
+        SelectedId = projectHelper.GetProjectUserIds(id)
+      };
+
+      return View("CreateOrUpdateForm", viewModel);
     }
 
     [HttpPost]
     public ActionResult CreateOrUpdateForm(ProjectFormViewModel viewModel)
     {
-      Project project = new Project()
+      //if ProjectId is 0 means its new created project
+      if (viewModel.Project.Id == 0)
       {
-        Name = viewModel.Project.Name,
-        Users = userHelper.GetAllUsersFromIds(viewModel.SelectedId),
-      };
+        Project project = new Project()
+        {
+          Name = viewModel.Project.Name,
+          Users = userHelper.GetAllUsersFromIds(viewModel.SelectedId),
+        };
 
-      projectHelper.AddProject(project);
-      return RedirectToAction("Index");
+        projectHelper.AddProject(project);
+      }
+      //Else project need to update
+      else
+      {
+        Project project = new Project()
+        {
+          Id = viewModel.Project.Id,
+          Name = viewModel.Project.Name,
+          Users = userHelper.GetAllUsersFromIds(viewModel.SelectedId),
+        };
+
+        projectHelper.UpdateProject(project);
+      }
+
+      return RedirectToAction("List");
     }
   }
 }
