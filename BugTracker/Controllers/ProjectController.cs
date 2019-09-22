@@ -18,9 +18,10 @@ namespace BugTracker.Controllers
       projectHelper = new ProjectHelper(db);
     }
     // GET: Project
-    public ActionResult Index()
+    public ActionResult List()
     {
-      return View();
+      var projects = projectHelper.GetAllProject();
+      return View(projects);
     }
     public ActionResult CreateOrUpdateForm()
     {

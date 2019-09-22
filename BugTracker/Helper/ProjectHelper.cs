@@ -13,6 +13,16 @@ namespace BugTracker.Helper
     }
 
     /// <summary>
+    /// Gives all projects.
+    /// </summary>
+    /// <returns>List of projects</returns>
+    public List<Project> GetAllProject()
+    {
+      var projects = db.Projects.ToList();
+      return projects;
+    }
+
+    /// <summary>
     /// Gives the project for supplied projectId.
     /// </summary>
     /// <param name="projectId">Unique project Id for the project.</param>
