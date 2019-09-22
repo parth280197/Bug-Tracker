@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections.Generic;
 
 namespace BugTracker.Helper
 {
@@ -61,6 +62,24 @@ namespace BugTracker.Helper
       {
         throw new NullReferenceException("userId and roleName can't be null!");
       }
+    }
+
+    /// <summary>
+    /// Gives list of users from the array of string containing userIds.
+    /// </summary>
+    /// <param name="userIds">Array of string containing userIds.</param>
+    /// <returns>List of Users.</returns>
+    public List<User> GetAllUsersFromIds(string[] userIds)
+    {
+      var users = new List<User>();
+      if (userIds.Length != 0)
+      {
+        foreach (string id in userIds)
+        {
+          users.Add(db.Users.Find(id));
+        }
+      }
+      return users;
     }
   }
 }
