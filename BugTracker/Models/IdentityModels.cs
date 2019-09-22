@@ -61,6 +61,12 @@ namespace BugTracker.Models
     public string AssignedToUserId { get; set; }
     [ForeignKey("AssignedToUserId")]
     public User AssignedToUser { get; set; }
+
+
+    public virtual ICollection<TicketAttachments> TicketAttachments { get; set; }
+    public virtual ICollection<TicketComments> TicketComments { get; set; }
+    public virtual ICollection<TicketHistories> TicketHistories { get; set; }
+    public virtual ICollection<TicketNotificatioin> TicketNotificatioins { get; set; }
   }
 
   public class TicketStatuses
@@ -148,11 +154,15 @@ namespace BugTracker.Models
     public int Id { get; set; }
     [Required]
     public string Name { get; set; }
+
+    //relations
     public virtual ICollection<User> Users { get; set; }
+    public virtual ICollection<Ticket> Tickets { get; set; }
   }
 
   public class ApplicationDbContext : IdentityDbContext<User>
   {
+    //relations
     public DbSet<Project> Projects { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<TicketAttachments> TicketAttachments { get; set; }
