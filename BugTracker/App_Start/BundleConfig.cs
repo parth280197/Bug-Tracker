@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace BugTracker
 {
@@ -25,6 +24,13 @@ namespace BugTracker
       bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/site.css"));
+
+      //choosen
+      bundles.Add(new StyleBundle("~/Content/chosen").Include(
+             "~/Content/chosen/chosen.min.css"));
+
+      bundles.Add(new ScriptBundle("~/bundles/chosen").Include(
+          "~/Scripts/chosen.jquery.min.js"));
     }
   }
 }

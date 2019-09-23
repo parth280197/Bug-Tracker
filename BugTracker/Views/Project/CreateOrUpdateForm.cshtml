@@ -7,7 +7,7 @@
 <h2>@ViewBag.Action</h2>
 
 
-@using (Html.BeginForm("CreateOrUpdateForm","Project"))
+@using (Html.BeginForm("CreateOrUpdateForm", "Project"))
 {
   @Html.AntiForgeryToken()
 
@@ -32,7 +32,7 @@
     <div class="form-group">
       <div class="col-md-offset-2 col-md-10">
         @Html.HiddenFor(model => model.Project.Id)
-        <input type="submit" value="@ViewBag.Action" class="btn btn-default" />
+        <input type="submit" value="@ViewBag.Action" class="btn btn-success" />
       </div>
     </div>
   </div>
@@ -42,6 +42,18 @@
   @Html.ActionLink("Back to List", "List")
 </div>
 
+
+
 @section Scripts {
   @Scripts.Render("~/bundles/jqueryval")
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#SelectionDropdown').chosen({
+        width: "45%"
+      });
+      $.validator.setDefaults({ ignore: ":hidden:not(#SelectionDropdown)" })
+      $('form').validate();
+    })
+  </script>
 }
