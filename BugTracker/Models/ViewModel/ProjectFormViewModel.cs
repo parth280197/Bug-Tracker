@@ -10,7 +10,7 @@ namespace BugTracker.Models.ViewModel
     [Display(Name = "Select users for the project.")]
     public IEnumerable<SelectListItem> UsersList { get; set; }
 
-    [Required(ErrorMessage = "*Please select user.")]
+    [Required(ErrorMessage = "*Please select user.", AllowEmptyStrings = false)]
     public string[] SelectedId { get; set; }
   }
 }
