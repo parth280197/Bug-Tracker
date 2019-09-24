@@ -39,19 +39,21 @@ namespace BugTracker.Models
     [Required]
     public string Description { get; set; }
     [Required]
+    [DisplayFormat(DataFormatString = "{0:d MMM yyyy}")]
     public DateTime Created { get; set; }
+    [DisplayFormat(DataFormatString = "{0:d MMM yyyy}")]
     public DateTime? Updated { get; set; }
     [Required]
     public int ProjectId { get; set; }
-    public Project Project { get; set; }
+    public virtual Project Project { get; set; }
     [Required]
     public int TicketTypeId { get; set; }
-    public TicketType TicketType { get; set; }
+    public virtual TicketType TicketType { get; set; }
     [Required]
     public int TicketPrioritiesId { get; set; }
-    public TicketPriorities TicketPriorities { get; set; }
+    public virtual TicketPriorities TicketPriorities { get; set; }
     public int? TicketStatusId { get; set; }
-    public TicketStatuses TicketStatus { get; set; }
+    public virtual TicketStatuses TicketStatus { get; set; }
     public string OwnerUserId { get; set; }
     [ForeignKey("OwnerUserId")]
     public User OwnersUser { get; set; }

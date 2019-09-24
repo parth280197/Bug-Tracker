@@ -20,9 +20,10 @@ namespace BugTracker.Controllers
       ticketHelper = new TicketHelper(db);
     }
     // GET: Tickets
-    public ActionResult Index()
+    public ActionResult List()
     {
-      return View();
+      var tickets = userHelper.GetUserFromId(User.Identity.GetUserId()).CreatedTickets.ToList();
+      return View(tickets);
     }
     [Authorize(Roles = "Submitter")]
     [HttpGet]

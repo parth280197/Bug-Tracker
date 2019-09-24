@@ -326,6 +326,7 @@
     <Content Include="Views\TicketPriorities\Details.cshtml" />
     <Content Include="Views\TicketPriorities\Edit.cshtml" />
     <Content Include="Views\TicketPriorities\Index.cshtml" />
+    <Content Include="Views\Ticket\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
