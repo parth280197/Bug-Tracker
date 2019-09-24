@@ -81,5 +81,20 @@ namespace BugTracker.Helper
       }
       return users;
     }
+
+    /// <summary>
+    /// Gives User object who have the same specified userId.
+    /// </summary>
+    /// <param name="userId">for User to be fetched.</param>
+    /// <returns>User object as per specified userId.</returns>
+    public User GetUserFromId(string userId)
+    {
+      User user = new User();
+      if (!string.IsNullOrEmpty(userId))
+      {
+        user = db.Users.Find(userId);
+      }
+      return user;
+    }
   }
 }

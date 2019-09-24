@@ -138,9 +138,11 @@ namespace BugTracker.Controllers
 
     //
     // GET: /Account/Register
+    [Authorize]
     [AllowAnonymous]
     public ActionResult Register()
     {
+      var flag = User.Identity.IsAuthenticated;
       RegisterViewModel registerViewModel = new RegisterViewModel()
       {
         Roles = _db.Roles.Select(role => new Role { Id = role.Id, Name = role.Name }).ToList()
@@ -153,7 +155,6 @@ namespace BugTracker.Controllers
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    [Authorize(Roles = "Admin")]
     public async Task<ActionResult> Register(RegisterViewModel model)
     {
       if (ModelState.IsValid)

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
+
   public class ProjectController : Controller
   {
     ApplicationDbContext db;
@@ -23,6 +24,7 @@ namespace BugTracker.Controllers
       var projects = projectHelper.GetAllProject();
       return View(projects);
     }
+    [Authorize(Roles = "Admin,ProjectManager")]
     public ActionResult Create()
     {
       ViewBag.Action = "Create";
@@ -34,7 +36,7 @@ namespace BugTracker.Controllers
 
       return View("CreateOrUpdateForm", viewModel);
     }
-
+    [Authorize(Roles = "Admin,ProjectManager")]
     public ActionResult Update(int id)
     {
       ViewBag.Action = "Update";
@@ -47,7 +49,7 @@ namespace BugTracker.Controllers
 
       return View("CreateOrUpdateForm", viewModel);
     }
-
+    [Authorize(Roles = "Admin,ProjectManager")]
     [HttpPost]
     public ActionResult CreateOrUpdateForm(ProjectFormViewModel viewModel)
     {
