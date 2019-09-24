@@ -181,10 +181,23 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ProjectHelper.cs" />
+    <Compile Include="Helper\TicketHelper.cs" />
     <Compile Include="Helper\UserHelper.cs" />
     <Compile Include="Migrations\201909191954068_Initial Model build.cs" />
     <Compile Include="Migrations\201909191954068_Initial Model build.Designer.cs">
       <DependentUpon>201909191954068_Initial Model build.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909241957108_TicketTableUpdated.cs" />
+    <Compile Include="Migrations\201909241957108_TicketTableUpdated.Designer.cs">
+      <DependentUpon>201909241957108_TicketTableUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909242002546_TicketTableUpdatedRIcketStatusIdNullable.cs" />
+    <Compile Include="Migrations\201909242002546_TicketTableUpdatedRIcketStatusIdNullable.Designer.cs">
+      <DependentUpon>201909242002546_TicketTableUpdatedRIcketStatusIdNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909242008178_TicketAttachmentFileUrlMadeOptional.cs" />
+    <Compile Include="Migrations\201909242008178_TicketAttachmentFileUrlMadeOptional.Designer.cs">
+      <DependentUpon>201909242008178_TicketAttachmentFileUrlMadeOptional.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -316,6 +329,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="TicketsAttachments\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -323,6 +337,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201909191954068_Initial Model build.resx">
       <DependentUpon>201909191954068_Initial Model build.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909241957108_TicketTableUpdated.resx">
+      <DependentUpon>201909241957108_TicketTableUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909242002546_TicketTableUpdatedRIcketStatusIdNullable.resx">
+      <DependentUpon>201909242002546_TicketTableUpdatedRIcketStatusIdNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909242008178_TicketAttachmentFileUrlMadeOptional.resx">
+      <DependentUpon>201909242008178_TicketAttachmentFileUrlMadeOptional.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

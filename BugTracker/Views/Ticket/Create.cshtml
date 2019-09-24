@@ -7,7 +7,10 @@
 <h2>@ViewBag.Action</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create","Ticket",FormMethod.Post, new  
+{  
+    enctype = "multipart/form-data"  
+})) 
 {
     @Html.AntiForgeryToken()
     
@@ -58,8 +61,7 @@
   <div class="form-group">
     @Html.LabelFor(model => model.FilePath, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
-      @Html.TextBoxFor(model => model.FilePath,new { @class = "form-control-file",Type="file"})
-      @Html.ValidationMessageFor(model => model.FilePath, "", new { @class = "text-danger" })
+      <input type="file" name="File" required />
     </div>
   </div>
 

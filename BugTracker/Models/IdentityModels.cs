@@ -50,14 +50,11 @@ namespace BugTracker.Models
     [Required]
     public int TicketPrioritiesId { get; set; }
     public TicketPriorities TicketPriorities { get; set; }
-    [Required]
-    public int TicketStatusId { get; set; }
+    public int? TicketStatusId { get; set; }
     public TicketStatuses TicketStatus { get; set; }
-    [Required]
     public string OwnerUserId { get; set; }
     [ForeignKey("OwnerUserId")]
     public User OwnersUser { get; set; }
-    [Required]
     public string AssignedToUserId { get; set; }
     [ForeignKey("AssignedToUserId")]
     public User AssignedToUser { get; set; }
@@ -104,7 +101,6 @@ namespace BugTracker.Models
     [Required]
     public string UserId { get; set; }
     public virtual User User { get; set; }
-    [Required]
     public string FileUrl { get; set; }
   }
   public class TicketComments

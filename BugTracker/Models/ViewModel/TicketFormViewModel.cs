@@ -31,6 +31,6 @@ namespace BugTracker.Models.ViewModel
 
     [Display(Name = "Add attachments")]
     public string FilePath { get; set; }
-    public HttpPostedFile File { get; set; }
+    public HttpPostedFileBase File { get; set; }
   }
 }
