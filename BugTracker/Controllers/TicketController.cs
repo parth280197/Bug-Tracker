@@ -54,19 +54,22 @@ namespace BugTracker.Controllers
       };
 
       int storedTicketId = ticketHelper.AddTicket(ticket);
-      string attachmentPath = ticketHelper.saveFile(viewModel.File);
 
-      TicketAttachments ticketAttachment = new TicketAttachments()
+      if (viewModel.File != null)
       {
-        TicketId = storedTicketId,
-        User = userHelper.GetUserFromId(User.Identity.GetUserId()),
-        Created = DateTime.Now,
-        FilePath = attachmentPath,
-        Description = viewModel.Description,
-      };
+        string attachmentPath = ticketHelper.saveFile(viewModel.File);
 
-      ticketHelper.AddTicketAttachment(ticketAttachment);
+        TicketAttachments ticketAttachment = new TicketAttachments()
+        {
+          TicketId = storedTicketId,
+          User = userHelper.GetUserFromId(User.Identity.GetUserId()),
+          Created = DateTime.Now,
+          FilePath = attachmentPath,
+          Description = viewModel.Description,
+        };
 
+        ticketHelper.AddTicketAttachment(ticketAttachment);
+      }
 
       return RedirectToAction("Index");
     }
