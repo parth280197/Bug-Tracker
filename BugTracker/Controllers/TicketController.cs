@@ -29,6 +29,7 @@ namespace BugTracker.Controllers
     [HttpGet]
     public ActionResult Create()
     {
+      ViewBag.Action = "Create";
       var user = userHelper.GetUserFromId(User.Identity.GetUserId());
       TicketFormViewModel viewModel = new TicketFormViewModel()
       {
@@ -72,6 +73,34 @@ namespace BugTracker.Controllers
       }
 
       return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public ActionResult Edit(int id)
+    {
+      ViewBag.Action = "Edit";
+      var user = userHelper.GetUserFromId(User.Identity.GetUserId());
+      Ticket ticket = ticketHelper.GetTicketFromId(id);
+
+      TicketEditFormViewModel viewModel = new TicketEditFormViewModel()
+      {
+        Title = ticket.Title,
+        Description = ticket.Description,
+        Projects = new SelectList(user.Projects.ToList(), "Id", "Name"),
+        ProjectId = ticket.ProjectId,
+        TicketTypes = new SelectList(db.TicketTypes.ToList(), "Id", "Name"),
+        TicketTypeId = ticket.TicketTypeId,
+        TicketPriorities = new SelectList(db.TicketPriorities.ToList(), "Id", "Name", ticket.TicketPrioritiesId.ToString()),
+        TicketPriorityId = ticket.TicketPrioritiesId,
+      };
+      return View(viewModel);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(TicketEditFormViewModel viewModel)
+    {
+      ticketHelper.SubmitterUpdateTicket(viewModel);
+      return RedirectToAction("List");
     }
 
   }
