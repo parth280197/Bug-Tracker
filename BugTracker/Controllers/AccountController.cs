@@ -139,7 +139,6 @@ namespace BugTracker.Controllers
     //
     // GET: /Account/Register
     [Authorize]
-    [AllowAnonymous]
     public ActionResult Register()
     {
       var flag = User.Identity.IsAuthenticated;
@@ -153,7 +152,6 @@ namespace BugTracker.Controllers
     //
     // POST: /Account/Register
     [HttpPost]
-    [AllowAnonymous]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> Register(RegisterViewModel model)
     {

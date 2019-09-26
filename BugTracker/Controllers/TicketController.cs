@@ -22,7 +22,8 @@ namespace BugTracker.Controllers
       ticketHelper = new TicketHelper(db);
     }
     // GET: Tickets
-    public ActionResult List()
+    [Authorize(Roles = "Submitter,Developer")]
+    public ActionResult ListForSubmitterOrDeveloper()
     {
       string userId = User.Identity.GetUserId();
       string userRole = userHelper.GetUserRole(userId);
@@ -31,18 +32,6 @@ namespace BugTracker.Controllers
       {
         tickets = userHelper.GetUserFromId(userId).CreatedTickets.ToList();
       }
-      else if (userRole == "ProjectManager")
-      {
-        var projects = userHelper.GetUserFromId(userId).Projects.ToList();
-        foreach (var project in projects)
-        {
-          tickets.AddRange(project.Tickets);
-        }
-      }
-      else if (userRole == "Admin")
-      {
-        tickets = db.Tickets.ToList();
-      }
       else
       {
         tickets = userHelper.GetUserFromId(userId).AssignedTickets.ToList();
@@ -50,6 +39,29 @@ namespace BugTracker.Controllers
 
       return View(tickets);
     }
+
+    [Authorize(Roles = "Admin,ProjectManager")]
+    public ActionResult ListForAdminOrProjectManager()
+    {
+      string userId = User.Identity.GetUserId();
+      string userRole = userHelper.GetUserRole(userId);
+      List<Ticket> tickets = new List<Ticket>();
+      if (userRole == "ProjectManager")
+      {
+        var projects = userHelper.GetUserFromId(userId).Projects.ToList();
+        foreach (var project in projects)
+        {
+          tickets.AddRange(project.Tickets);
+        }
+      }
+      else
+      {
+        tickets = db.Tickets.ToList();
+      }
+
+      return View(tickets);
+    }
+
     [Authorize(Roles = "Submitter")]
     [HttpGet]
     public ActionResult Create()
