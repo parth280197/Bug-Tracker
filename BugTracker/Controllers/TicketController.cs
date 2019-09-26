@@ -140,5 +140,26 @@ namespace BugTracker.Controllers
       return RedirectToAction("List");
     }
 
+    [HttpGet]
+    [Authorize(Roles = "Admin,ProjectManager")]
+    public ActionResult UpdateStatus(int id)
+    {
+      Ticket ticket = ticketHelper.GetTicketFromId(id);
+      TicketUpdateStatusViewModel viewModel = new TicketUpdateStatusViewModel()
+      {
+        TicketStatus = new SelectList(db.TicketStatuses.ToList(), "Id", "Name"),
+        TicketStatusId = ticket.TicketStatusId != null ? (int)ticket.TicketStatusId : 0,
+        Title = ticket.Title,
+        Description = ticket.Description,
+      };
+
+      return View(viewModel);
+    }
+
+    [HttpPost]
+    public ActionResult UpdateStatus(TicketEditFormViewModel viewModel)
+    {
+      return View();
+    }
   }
 }

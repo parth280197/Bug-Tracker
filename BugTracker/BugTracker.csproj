@@ -206,6 +206,7 @@
     <Compile Include="Models\ViewModel\ProjectFormViewModel.cs" />
     <Compile Include="Models\ViewModel\TicketEditFormViewModel.cs" />
     <Compile Include="Models\ViewModel\TicketFormViewModel.cs" />
+    <Compile Include="Models\ViewModel\TicketUpdateStatusViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -563,8 +564,10 @@
     <Content Include="Views\TicketPriorities\Details.cshtml" />
     <Content Include="Views\TicketPriorities\Edit.cshtml" />
     <Content Include="Views\TicketPriorities\Index.cshtml" />
-    <Content Include="Views\Ticket\List.cshtml" />
+    <Content Include="Views\Ticket\ListForSubmitterOrDeveloper.cshtml" />
     <Content Include="Views\Ticket\Edit.cshtml" />
+    <Content Include="Views\Ticket\ListForAdminOrProjectManager.cshtml" />
+    <Content Include="Views\Ticket\UpdateStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
