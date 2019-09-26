@@ -3,11 +3,13 @@ using BugTracker.Models;
 using BugTracker.Models.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
+  [Authorize]
   public class TicketController : Controller
   {
     ApplicationDbContext db;
@@ -22,7 +24,30 @@ namespace BugTracker.Controllers
     // GET: Tickets
     public ActionResult List()
     {
-      var tickets = userHelper.GetUserFromId(User.Identity.GetUserId()).CreatedTickets.ToList();
+      string userId = User.Identity.GetUserId();
+      string userRole = userHelper.GetUserRole(userId);
+      List<Ticket> tickets = new List<Ticket>();
+      if (userRole == "Submitter")
+      {
+        tickets = userHelper.GetUserFromId(userId).CreatedTickets.ToList();
+      }
+      else if (userRole == "ProjectManager")
+      {
+        var projects = userHelper.GetUserFromId(userId).Projects.ToList();
+        foreach (var project in projects)
+        {
+          tickets.AddRange(project.Tickets);
+        }
+      }
+      else if (userRole == "Admin")
+      {
+        tickets = db.Tickets.ToList();
+      }
+      else
+      {
+        tickets = userHelper.GetUserFromId(userId).AssignedTickets.ToList();
+      }
+
       return View(tickets);
     }
     [Authorize(Roles = "Submitter")]

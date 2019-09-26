@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BugTracker.Helper
 {
@@ -95,6 +96,17 @@ namespace BugTracker.Helper
         user = db.Users.Find(userId);
       }
       return user;
+    }
+
+    /// <summary>
+    /// Get user role.
+    /// </summary>
+    /// <param name="userId">to fetch userRole for specific user.</param>
+    /// <returns>user role as string.</returns>
+    public string GetUserRole(string userId)
+    {
+      string userRole = _userManager.GetRoles(userId).ToList().First();
+      return userRole;
     }
   }
 }
