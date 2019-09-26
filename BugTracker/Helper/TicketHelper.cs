@@ -119,5 +119,12 @@ namespace BugTracker.Helper
         UserId = userId,
       });
     }
+
+    public void UpdateStatus(int ticketId, int statusId)
+    {
+      Ticket ticket = GetTicketFromId(ticketId);
+      ticket.TicketStatusId = statusId;
+      db.SaveChanges();
+    }
   }
 }

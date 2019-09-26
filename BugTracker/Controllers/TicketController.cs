@@ -157,9 +157,10 @@ namespace BugTracker.Controllers
     }
 
     [HttpPost]
-    public ActionResult UpdateStatus(TicketEditFormViewModel viewModel)
+    public ActionResult UpdateStatus(TicketUpdateStatusViewModel viewModel)
     {
-      return View();
+      ticketHelper.UpdateStatus(viewModel.Id, viewModel.TicketStatusId);
+      return RedirectToAction("ListForAdminOrProjectManager");
     }
   }
 }
