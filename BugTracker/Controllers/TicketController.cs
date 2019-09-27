@@ -159,7 +159,8 @@ namespace BugTracker.Controllers
     [HttpPost]
     public ActionResult UpdateStatus(TicketUpdateStatusViewModel viewModel)
     {
-      ticketHelper.UpdateStatus(viewModel.Id, viewModel.TicketStatusId);
+      string userId = User.Identity.GetUserId();
+      ticketHelper.UpdateStatus(viewModel.Id, viewModel.TicketStatusId, userId);
       return RedirectToAction("ListForAdminOrProjectManager");
     }
   }

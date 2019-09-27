@@ -120,10 +120,20 @@ namespace BugTracker.Helper
       });
     }
 
-    public void UpdateStatus(int ticketId, int statusId)
+    public void UpdateStatus(int ticketId, int statusId, string userId)
     {
       Ticket ticket = GetTicketFromId(ticketId);
+      string oldValue = ticket.TicketStatusId.ToString() == "" ? "N/A" : ticket.TicketStatusId.ToString();
       ticket.TicketStatusId = statusId;
+      ticket.TicketHistories.Add(new TicketHistories()
+      {
+        Changed = DateTime.Now,
+        NewValue = statusId.ToString(),
+        Property = "TicketStatusId",
+        OldValue = oldValue,
+        TicketId = ticketId,
+        UserId = userId,
+      });
       db.SaveChanges();
     }
   }
