@@ -56,10 +56,10 @@ namespace BugTracker.Models
     public virtual TicketStatuses TicketStatus { get; set; }
     public string OwnerUserId { get; set; }
     [ForeignKey("OwnerUserId")]
-    public User OwnersUser { get; set; }
+    public virtual User OwnersUser { get; set; }
     public string AssignedToUserId { get; set; }
     [ForeignKey("AssignedToUserId")]
-    public User AssignedToUser { get; set; }
+    public virtual User AssignedToUser { get; set; }
 
 
     public virtual ICollection<TicketAttachments> TicketAttachments { get; set; }

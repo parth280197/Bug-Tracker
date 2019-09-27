@@ -4,11 +4,13 @@
   ViewBag.Title = "List";
 }
 
-<h2>List</h2>
-
-<p>
-  @Html.ActionLink("Create New", "Create")
-</p>
+<h2>List of all tickets.</h2>
+@if (User.IsInRole("Submitter"))
+{
+  <p>
+    @Html.ActionLink("Create New", "Create")
+  </p>
+}
 <table class="table table-light table-bordered table-hover">
   <thead>
     <tr>
