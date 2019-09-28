@@ -203,6 +203,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModel\AssignUserViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectFormViewModel.cs" />
     <Compile Include="Models\ViewModel\TicketEditFormViewModel.cs" />
     <Compile Include="Models\ViewModel\TicketFormViewModel.cs" />
@@ -568,6 +569,7 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Ticket\ListForAdminOrProjectManager.cshtml" />
     <Content Include="Views\Ticket\UpdateStatus.cshtml" />
+    <Content Include="Views\Ticket\AssignUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

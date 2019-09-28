@@ -108,5 +108,24 @@ namespace BugTracker.Helper
       string userRole = _userManager.GetRoles(userId).ToList().First();
       return userRole;
     }
+
+    /// <summary>
+    /// Gives List of users who have specified role.
+    /// </summary>
+    /// <param name="roleName">To get all user in perticuar role.</param>
+    /// <returns>List of users which have specified role.</returns>
+    public List<User> GetUsersFromRole(string roleName)
+    {
+      var users = db.Users.ToList();
+      List<User> result = new List<User>();
+      foreach (var user in users)
+      {
+        if (_userManager.IsInRole(user.Id, roleName))
+        {
+          result.Add(user);
+        }
+      }
+      return result;
+    }
   }
 }

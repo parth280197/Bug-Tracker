@@ -163,5 +163,19 @@ namespace BugTracker.Controllers
       ticketHelper.UpdateStatus(viewModel.Id, viewModel.TicketStatusId, userId);
       return RedirectToAction("ListForAdminOrProjectManager");
     }
+
+    [HttpGet]
+    [Authorize(Roles = "Admin,ProjectManager")]
+    public ActionResult AssignUsers(int id)
+    {
+      Ticket ticket = ticketHelper.GetTicketFromId(id);
+      AssignUserViewModel viewModel = new AssignUserViewModel()
+      {
+        Title = ticket.Title,
+        Description = ticket.Description,
+        UsersList = userHelper.GetUsersFromRole("Developer").Select(user => new SelectListItem { Text = user.Email, Value = user.Id })
+      };
+      return View(viewModel);
+    }
   }
 }
