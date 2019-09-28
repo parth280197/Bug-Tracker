@@ -10,9 +10,11 @@ namespace BugTracker.Helper
   public class TicketHelper
   {
     private ApplicationDbContext db;
+    private UserHelper userHelper;
     public TicketHelper(ApplicationDbContext db)
     {
       this.db = db;
+      userHelper = new UserHelper(db);
     }
 
     /// <summary>
@@ -135,6 +137,10 @@ namespace BugTracker.Helper
         UserId = userId,
       });
       db.SaveChanges();
+    }
+
+    public void AssignUser(AssignUserViewModel viewModel)
+    {
     }
   }
 }

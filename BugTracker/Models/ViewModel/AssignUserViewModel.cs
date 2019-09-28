@@ -10,9 +10,10 @@ namespace BugTracker.Models.ViewModel
     public int Id { get; set; }
     public String Title { get; set; }
     public string Description { get; set; }
+    [Display(Name = "Select user to assign task")]
     public IEnumerable<SelectListItem> UsersList { get; set; }
 
     [Required(ErrorMessage = "*Please select user.", AllowEmptyStrings = false)]
-    public string[] SelectedId { get; set; }
+    public string SelectedId { get; set; }
   }
 }

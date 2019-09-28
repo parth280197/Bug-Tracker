@@ -61,7 +61,6 @@ namespace BugTracker.Models
     [ForeignKey("AssignedToUserId")]
     public virtual User AssignedToUser { get; set; }
 
-
     public virtual ICollection<TicketAttachments> TicketAttachments { get; set; }
     public virtual ICollection<TicketComments> TicketComments { get; set; }
     public virtual ICollection<TicketHistories> TicketHistories { get; set; }

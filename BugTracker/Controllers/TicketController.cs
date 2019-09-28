@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
-  [Authorize]
   public class TicketController : Controller
   {
     ApplicationDbContext db;
@@ -169,13 +168,24 @@ namespace BugTracker.Controllers
     public ActionResult AssignUsers(int id)
     {
       Ticket ticket = ticketHelper.GetTicketFromId(id);
+      string selectedId = ticket.AssignedToUserId == null ? "" : ticket.AssignedToUserId;
       AssignUserViewModel viewModel = new AssignUserViewModel()
       {
         Title = ticket.Title,
         Description = ticket.Description,
-        UsersList = userHelper.GetUsersFromRole("Developer").Select(user => new SelectListItem { Text = user.Email, Value = user.Id })
+        UsersList = userHelper.GetUsersFromRole("Developer").Select(user => new SelectListItem { Text = user.Email, Value = user.Id }),
+        SelectedId = selectedId
       };
       return View(viewModel);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult AssignUsers(AssignUserViewModel viewModel)
+    {
+      ticketHelper.GetTicketFromId(viewModel.Id).AssignedToUserId = viewModel.SelectedId;
+      db.SaveChanges();
+      return RedirectToAction("ListForAdminOrProjectManager");
     }
   }
 }

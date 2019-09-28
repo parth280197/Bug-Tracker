@@ -53,7 +53,6 @@ namespace BugTracker.Helper
       db.Projects.Add(project);
       db.SaveChanges();
     }
-
     public void UpdateProject(Project project)
     {
       if (project != null)
