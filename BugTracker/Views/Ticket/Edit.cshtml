@@ -42,10 +42,10 @@
     </div>
 
     <div class="form-group">
-      @Html.LabelFor(model => model.TicketPriorityId, htmlAttributes: new { @class = "control-label col-md-2" })
+      @Html.LabelFor(model => model.TicketPrioritiesId, htmlAttributes: new { @class = "control-label col-md-2" })
       <div class="col-md-10">
-        @Html.DropDownListFor(model => model.TicketPriorityId, Model.TicketPriorities, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.TicketPriorityId, "", new { @class = "text-danger" })
+        @Html.DropDownListFor(model => model.TicketPrioritiesId, Model.TicketPriorities, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TicketPrioritiesId, "", new { @class = "text-danger" })
       </div>
     </div>
 

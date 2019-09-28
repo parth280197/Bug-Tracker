@@ -25,7 +25,7 @@ namespace BugTracker.Models.ViewModel
 
     [Required(ErrorMessage = "Please select priority.")]
     [Display(Name = "Select priority")]
-    public int TicketPriorityId { get; set; }
+    public int TicketPrioritiesId { get; set; }
     public SelectList TicketPriorities { get; set; }
   }
 }

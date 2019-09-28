@@ -127,7 +127,7 @@ namespace BugTracker.Controllers
         TicketTypes = new SelectList(db.TicketTypes.ToList(), "Id", "Name"),
         TicketTypeId = ticket.TicketTypeId,
         TicketPriorities = new SelectList(db.TicketPriorities.ToList(), "Id", "Name", ticket.TicketPrioritiesId.ToString()),
-        TicketPriorityId = ticket.TicketPrioritiesId,
+        TicketPrioritiesId = ticket.TicketPrioritiesId,
       };
       return View(viewModel);
     }
@@ -135,8 +135,14 @@ namespace BugTracker.Controllers
     [HttpPost]
     public ActionResult Edit(TicketEditFormViewModel viewModel)
     {
+      var role = userHelper.GetUserRole(User.Identity.GetUserId());
       ticketHelper.SubmitterUpdateTicket(viewModel);
-      return RedirectToAction("List");
+      if (role == "Admin" || role == "ProjectManager")
+        return RedirectToAction("ListForAdminOrProjectManager");
+      else
+      {
+        return RedirectToAction("ListForSubmitterOrDeveloper");
+      }
     }
 
     [HttpGet]

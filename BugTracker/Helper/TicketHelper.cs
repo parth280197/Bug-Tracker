@@ -89,10 +89,10 @@ namespace BugTracker.Helper
         ticketInDb.Description = viewModel.Description;
       }
 
-      if (ticketInDb.TicketPrioritiesId != viewModel.TicketPriorityId)
+      if (ticketInDb.TicketPrioritiesId != viewModel.TicketPrioritiesId)
       {
         AddTicketHistory("TicketPrioritiesId", ticketInDb, viewModel, ticketInDb.OwnerUserId);
-        ticketInDb.TicketPrioritiesId = viewModel.TicketPriorityId;
+        ticketInDb.TicketPrioritiesId = viewModel.TicketPrioritiesId;
       }
 
       if (ticketInDb.ProjectId != viewModel.ProjectId)
@@ -111,6 +111,7 @@ namespace BugTracker.Helper
 
     public void AddTicketHistory(string editedProperty, Ticket ticket, TicketEditFormViewModel viewModel, string userId)
     {
+      var x = viewModel.GetType().GetProperty(editedProperty).GetValue(viewModel).ToString();
       ticket.TicketHistories.Add(new TicketHistories()
       {
         Changed = ticket.Updated.Value,
