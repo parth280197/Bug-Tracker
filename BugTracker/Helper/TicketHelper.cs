@@ -140,8 +140,23 @@ namespace BugTracker.Helper
       db.SaveChanges();
     }
 
-    public void AssignUser(AssignUserViewModel viewModel)
+    /// <summary>
+    /// Return true if user involved in specified role else return false
+    /// </summary>
+    /// <param name="userId">for uniquely identify user.</param>
+    /// <param name="ticketId">for uniquely identify ticket.</param>
+    /// <returns>bool value true or false based on result if exist then return true else return false.</returns>
+    public bool isUserExistInTicket(string userId, int ticketId)
     {
+      User loggedInUser = userHelper.GetUserFromId(userId);
+      string userRole = userHelper.GetUserRole(loggedInUser.Id);
+      Ticket ticket = GetTicketFromId(ticketId);
+      if (userRole == "Admin" || userRole == "Admin" || loggedInUser.Id == ticket.AssignedToUserId
+          || loggedInUser.Id == ticket.OwnerUserId)
+      {
+        return true;
+      }
+      return false;
     }
   }
 }

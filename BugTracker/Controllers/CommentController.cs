@@ -12,19 +12,22 @@ namespace BugTracker.Controllers
   {
     ApplicationDbContext db;
     TicketHelper ticketHelper;
+    UserHelper userHelper;
     public CommentController()
     {
       db = new ApplicationDbContext();
+      userHelper = new UserHelper(db);
       ticketHelper = new TicketHelper(db);
     }
     // GET: Comment
     public ActionResult List(int id)
     {
-      //Additional filtering remaining to check wheather user itself is involved in the ticket or user 
-      //tried to get access to data from url.
-      Ticket ticket = ticketHelper.GetTicketFromId(id);
-      List<TicketComments> ticketComments = ticket.TicketComments.ToList();
-      ViewBag.TicketId = id;
+      User loggedInUser = userHelper.GetUserFromId(User.Identity.GetUserId());
+      List<TicketComments> ticketComments = new List<TicketComments>();
+      if (ticketHelper.isUserExistInTicket(loggedInUser.Id, id))
+      {
+        ticketComments = ticketHelper.GetTicketFromId(id).TicketComments.ToList();
+      }
       return View(ticketComments);
     }
 
