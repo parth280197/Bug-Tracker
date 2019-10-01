@@ -53,10 +53,9 @@
             @Html.DisplayFor(modelItem => item.FileUrl)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Download","Download",new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id },new { @class="text-warning"}) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id },new { @class="text-danger"}) |
+            @Html.ActionLink("Download","Download",new { id=item.Id },new { @class="text-success"})
         </td>
     </tr>
 }

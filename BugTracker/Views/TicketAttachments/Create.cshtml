@@ -9,7 +9,7 @@
   @Html.AntiForgeryToken()
 
   <div class="form-horizontal">
-    <h4>AttachmentFormViewModel</h4>
+    <h4>Add new attachment.</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -31,6 +31,7 @@
     <div class="form-group">
       <div class="col-md-offset-2 col-md-10">
         @Html.HiddenFor(model => model.TicketId)
+        @Html.HiddenFor(model => model.Id)
         <input type="submit" value="Create" class="btn btn-outline-success" />
       </div>
     </div>
@@ -38,7 +39,7 @@
 }
 
 <div>
-  @Html.ActionLink("Back to List", "Index")
+  @Html.ActionLink("Back to List", "List",new { id = ViewBag.TicketId})
 </div>
 
 @section Scripts {

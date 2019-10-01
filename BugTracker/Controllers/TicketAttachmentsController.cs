@@ -3,7 +3,6 @@ using BugTracker.Models;
 using BugTracker.Models.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -31,11 +30,12 @@ namespace BugTracker.Controllers
         var ticketAttachments = ticketHelper.GetTicketFromId(id).TicketAttachments.ToList();
         return View(ticketAttachments);
       }
-      return View();
+      return RedirectToAction("RedirectToTickets");
     }
 
     public ActionResult Create(int id)
     {
+      ViewBag.TicketId = id;
       AttachmentFormViewModel viewModel = new AttachmentFormViewModel()
       {
         TicketId = id,
@@ -64,7 +64,7 @@ namespace BugTracker.Controllers
         db.TicketAttachments.Add(attachments);
         db.SaveChanges();
       }
-      return View();
+      return RedirectToAction("List", new { id = viewModel.TicketId });
     }
 
     public ActionResult Download(int id)
@@ -77,7 +77,6 @@ namespace BugTracker.Controllers
       }
       return View();
     }
-    // GET: TicketAttachments/Edit/5
     public ActionResult Edit(int? id)
     {
       if (id == null)
@@ -89,27 +88,28 @@ namespace BugTracker.Controllers
       {
         return HttpNotFound();
       }
-      ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachments.TicketId);
-      ViewBag.UserId = new SelectList(db.Users, "Id", "Email", ticketAttachments.UserId);
-      return View(ticketAttachments);
+      var viewModel = new AttachmentFormViewModel()
+      {
+        Id = ticketAttachments.Id,
+        TicketId = ticketAttachments.TicketId,
+        Description = ticketAttachments.Description,
+      };
+      return View(viewModel);
     }
 
-    // POST: TicketAttachments/Edit/5
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-    // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit([Bind(Include = "Id,TicketId,FilePath,Description,Created,UserId,FileUrl")] TicketAttachments ticketAttachments)
+    public ActionResult Edit(AttachmentFormViewModel viewModel)
     {
-      if (ModelState.IsValid)
+      User loggedInUser = userHelper.GetUserFromId(User.Identity.GetUserId());
+      if (ticketHelper.isUserExistInTicket(loggedInUser.Id, viewModel.TicketId))
       {
-        db.Entry(ticketAttachments).State = EntityState.Modified;
+        var attachmentInDb = db.TicketAttachments.Find(viewModel.Id);
+        attachmentInDb.Description = viewModel.Description;
+        attachmentInDb.FilePath = ticketHelper.saveFile(viewModel.File);
         db.SaveChanges();
-        return RedirectToAction("Index");
-      }
-      ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachments.TicketId);
-      ViewBag.UserId = new SelectList(db.Users, "Id", "Email", ticketAttachments.UserId);
-      return View(ticketAttachments);
+      };
+      return RedirectToAction("List", new { id = viewModel.TicketId });
     }
 
     // GET: TicketAttachments/Delete/5
@@ -135,9 +135,19 @@ namespace BugTracker.Controllers
       TicketAttachments ticketAttachments = db.TicketAttachments.Find(id);
       db.TicketAttachments.Remove(ticketAttachments);
       db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("List", new { id = ticketAttachments.TicketId });
     }
 
+    public ActionResult RedirectToTickets()
+    {
+      var role = userHelper.GetUserRole(User.Identity.GetUserId());
+      if (role == "Admin" || role == "ProjectManager")
+        return RedirectToAction("ListForAdminOrProjectManager", "Ticket");
+      else
+      {
+        return RedirectToAction("ListForSubmitterOrDeveloper", "Ticket");
+      }
+    }
     protected override void Dispose(bool disposing)
     {
       if (disposing)
