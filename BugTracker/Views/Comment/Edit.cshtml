@@ -24,14 +24,14 @@
             @Html.HiddenFor(model => model.TicketId)
             @Html.HiddenFor(model => model.UserId)
             @Html.HiddenFor(model => model.Created)
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-outline-primary" />
           </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List",new { id= ViewBag.TicketId})
 </div>
 
 @section Scripts {

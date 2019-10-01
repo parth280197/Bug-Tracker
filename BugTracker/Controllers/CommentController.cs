@@ -44,6 +44,7 @@ namespace BugTracker.Controllers
     [HttpGet]
     public ActionResult Create(int id)
     {
+      ViewBag.TicketId = id;
       TicketComments ticketComments = new TicketComments()
       {
         UserId = User.Identity.GetUserId(),
@@ -56,9 +57,13 @@ namespace BugTracker.Controllers
     {
       if (ModelState.IsValid)
       {
-        ticketComments.Created = DateTime.Now;
-        db.TicketComments.Add(ticketComments);
-        db.SaveChanges();
+        User loggedInUser = userHelper.GetUserFromId(User.Identity.GetUserId());
+        if (ticketHelper.isUserExistInTicket(loggedInUser.Id, ticketComments.TicketId))
+        {
+          ticketComments.Created = DateTime.Now;
+          db.TicketComments.Add(ticketComments);
+          db.SaveChanges();
+        }
       }
       return RedirectToAction("List", new { id = ticketComments.TicketId });
 
@@ -67,6 +72,7 @@ namespace BugTracker.Controllers
     [HttpGet]
     public ActionResult Edit(int id)
     {
+      ViewBag.TicketId = id;
       TicketComments comment = db.TicketComments.Find(id);
       TicketComments ticketComments = new TicketComments()
       {
@@ -83,9 +89,13 @@ namespace BugTracker.Controllers
     {
       if (ModelState.IsValid)
       {
-        TicketComments commentInDb = db.TicketComments.Find(ticketComments.Id);
-        commentInDb.Comment = ticketComments.Comment;
-        db.SaveChanges();
+        User loggedInUser = userHelper.GetUserFromId(User.Identity.GetUserId());
+        if (ticketHelper.isUserExistInTicket(loggedInUser.Id, ticketComments.TicketId))
+        {
+          TicketComments commentInDb = db.TicketComments.Find(ticketComments.Id);
+          commentInDb.Comment = ticketComments.Comment;
+          db.SaveChanges();
+        }
       }
       return RedirectToAction("List", new { id = ticketComments.TicketId });
 
