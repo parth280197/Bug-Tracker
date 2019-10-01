@@ -113,7 +113,7 @@ namespace BugTracker.Models
     public DateTime Created { get; set; }
     [Required]
     public int TicketId { get; set; }
-    public Ticket Ticket { get; set; }
+    public virtual Ticket Ticket { get; set; }
     [Required]
     public string UserId { get; set; }
     public virtual User User { get; set; }

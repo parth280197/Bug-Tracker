@@ -57,9 +57,16 @@
   </div>
 }
 
-  <div>
+<div>
+  @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+  {
+    @Html.ActionLink("Back to List", "ListForAdminOrProjectManager")
+  }
+  else
+  {
     @Html.ActionLink("Back to List", "ListForSubmitterOrDeveloper")
-  </div>
+  }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -174,6 +174,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\TicketAttachmentsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\TicketPrioritiesController.cs" />
     <Compile Include="Controllers\TicketStatusesController.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModel\AssignUserViewModel.cs" />
+    <Compile Include="Models\ViewModel\AttachmentFormViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectFormViewModel.cs" />
     <Compile Include="Models\ViewModel\TicketEditFormViewModel.cs" />
     <Compile Include="Models\ViewModel\TicketFormViewModel.cs" />
@@ -573,6 +575,13 @@
     <Content Include="Views\Ticket\AssignUsers.cshtml" />
     <Content Include="Views\Comment\List.cshtml" />
     <Content Include="Views\Comment\Create.cshtml" />
+    <Content Include="Views\Comment\UserCommentList.cshtml" />
+    <Content Include="Views\Comment\Edit.cshtml" />
+    <Content Include="Views\TicketAttachments\Create.cshtml" />
+    <Content Include="Views\TicketAttachments\Delete.cshtml" />
+    <Content Include="Views\TicketAttachments\Details.cshtml" />
+    <Content Include="Views\TicketAttachments\Edit.cshtml" />
+    <Content Include="Views\TicketAttachments\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

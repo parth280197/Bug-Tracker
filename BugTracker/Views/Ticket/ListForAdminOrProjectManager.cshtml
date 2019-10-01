@@ -63,7 +63,8 @@
           @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
           @Html.ActionLink("UpdateStatus", "UpdateStatus", new { id = item.Id }) |
           @Html.ActionLink("AssignUsers", "AssignUsers", new { id = item.Id }) |
-          @Html.ActionLink("Comment","List","Comment",new { id = item.Id},null)
+          @Html.ActionLink("Comment","List","Comment",new { id = item.Id},null) |
+          @Html.ActionLink("Attachment","List","TicketAttachments",new { id = item.Id},null)
         </td>
       </tr>
     }

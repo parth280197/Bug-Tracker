@@ -68,7 +68,8 @@ namespace BugTracker.Helper
     /// <returns>Ticket object</returns>
     public Ticket GetTicketFromId(int ticketId)
     {
-      Ticket ticket = db.Tickets.Find(ticketId);
+      Ticket ticket = new Ticket();
+      ticket = db.Tickets.Find(ticketId);
       return ticket;
     }
 
@@ -151,8 +152,8 @@ namespace BugTracker.Helper
       User loggedInUser = userHelper.GetUserFromId(userId);
       string userRole = userHelper.GetUserRole(loggedInUser.Id);
       Ticket ticket = GetTicketFromId(ticketId);
-      if (userRole == "Admin" || userRole == "Admin" || loggedInUser.Id == ticket.AssignedToUserId
-          || loggedInUser.Id == ticket.OwnerUserId)
+      if ((userRole == "Admin" || userRole == "Admin" || loggedInUser.Id == ticket.AssignedToUserId
+          || loggedInUser.Id == ticket.OwnerUserId) && ticket != null)
       {
         return true;
       }

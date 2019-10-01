@@ -1,11 +1,5 @@
 ﻿@model IEnumerable<BugTracker.Models.TicketComments>
 
-<p>
-    @Html.ActionLink("Create New", "Create",new { id = ViewBag.TicketId})
-</p>
-<p>
-    @Html.ActionLink("Update/Delete your comment", "UserCommentList",new { id = ViewBag.TicketId})
-</p>
 <table class="table">
     <tr>
         <th>
@@ -18,8 +12,9 @@
             @Html.DisplayNameFor(model => model.Ticket.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.User.UserName)
         </th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -36,10 +31,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.User.UserName)
         </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
     </tr>
 }
-
-</table>
 <p>
-  @Html.ActionLink("Back to all tickets", "RedirectToTickets")
+  @Html.ActionLink("Back to comment list", "List", new { id = ViewBag.TicketId })
 </p>
+</table>
