@@ -13,6 +13,34 @@
 
   ![Full screen](./login.png)
 
-2. Mobile screen view
+2. Register
 
-  ![Full screen](./responsive-portfolio/mobile-view.JPG)
+  ![Full screen](./Register.png)
+  
+3. Create project
+
+  ![Full screen](./CreateProject.png)
+  
+4. Create Ticket
+
+  ![Full screen](./CreateTicket.png)
+  
+5. ListTickets
+
+  ![Full screen](./ListTickets.png)
+  
+6. Update Ticket Status
+
+  ![Full screen](./UpdateTicketStatus.png)
+  
+7. Ticket Comment
+
+  ![Full screen](./TicketComment.png)
+  
+8. Comment List
+
+  ![Full screen](./CommentList.png)
+  
+9. Attachment List
+
+  ![Full screen](./AttachmentList.png)
