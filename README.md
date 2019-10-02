@@ -11,7 +11,7 @@
 ## Screen Shots
 1. Login
 
-  ![Full screen](./Bug-Tracker/login.png)
+  ![Full screen](./login.png)
 
 2. Mobile screen view
 
